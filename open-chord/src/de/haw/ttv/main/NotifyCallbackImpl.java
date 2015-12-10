@@ -3,6 +3,7 @@ package de.haw.ttv.main;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.chord.service.NotifyCallback;
@@ -21,7 +22,17 @@ public class NotifyCallbackImpl implements NotifyCallback {
 	
 	@Override
 	public void retrieved(ID target) {
-		System.out.println(target.toString());
+		System.out.println("TargetID: " + target.toString());
+		boolean player = false;
+		ID uniquePlayer = null;
+		do{
+			int number = ThreadLocalRandom.current().nextInt(0, uniquePlayers.size() + 1);
+			uniquePlayer = uniquePlayers.get(number);
+			if(!uniquePlayer.equals(chordImpl.getID()))
+				player = true;
+		}while(!player);
+		ShootThread st = new ShootThread(chordImpl, uniquePlayer);
+		st.start();
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,13 +66,17 @@ public class Main {
         }
 	}
 
-
 	private void shoot() {
-		for(ID id : chord.getNotifyCallbackImpl().getUniquePlayers()){
-			if(!id.equals(myID)){
-				ShootThread st = new ShootThread(chord.getChordImpl(), id);
-				st.start();
-			}
-		}
+		boolean player = false;
+		ID uniquePlayer = null;
+		do{
+			int number = ThreadLocalRandom.current().nextInt(0, chord.getNotifyCallbackImpl().getUniquePlayers().size() + 1);
+			uniquePlayer = chord.getNotifyCallbackImpl().getUniquePlayers().get(number);
+			if(!uniquePlayer.equals(myID))
+				player = true;
+		}while(!player);
+		ShootThread st = new ShootThread(chord.getChordImpl(), uniquePlayer);
+		st.start();
 	}
+
 }
