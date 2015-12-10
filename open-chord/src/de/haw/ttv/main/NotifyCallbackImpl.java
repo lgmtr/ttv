@@ -25,14 +25,12 @@ public class NotifyCallbackImpl implements NotifyCallback {
 		System.out.println("MyID: " + chordImpl.getID().toString());
 		System.out.println("Compare: " + target.compareTo(chordImpl.getID()));
 		if (target.compareTo(chordImpl.getID()) == 0) {
-			ID uniquePlayer = null;
 			for(ID id : uniquePlayers){
-				if(id.compareTo(chordImpl.getID()) != 0){
-					uniquePlayer = id;
+				if(!id.equals(chordImpl.getID())){
+					ShootThread st = new ShootThread(chordImpl, id);
+					st.start();
 				}
 			}
-			ShootThread st = new ShootThread(chordImpl, uniquePlayer);
-			st.start();
 		}
 	}
 
