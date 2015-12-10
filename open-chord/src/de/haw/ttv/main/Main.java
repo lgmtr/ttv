@@ -30,6 +30,7 @@ public class Main {
 	private void startGame() {
 		chord = new Chord();
 		chord.init();
+		System.out.println("MyID: " + chord.getChordImpl().getID().toString());
         Scanner scanner = new Scanner(System.in);
             // start the game after s was typed in
             String input;
@@ -66,15 +67,13 @@ public class Main {
         }
 	}
 
-	private void shoot() {
-		boolean player = false;
+	public void shoot() {
 		ID uniquePlayer = null;
-		do{
-			int number = ThreadLocalRandom.current().nextInt(0, chord.getNotifyCallbackImpl().getUniquePlayers().size() + 1);
-			uniquePlayer = chord.getNotifyCallbackImpl().getUniquePlayers().get(number);
-			if(!uniquePlayer.equals(myID))
-				player = true;
-		}while(!player);
+		for(ID id : chord.getNotifyCallbackImpl().getUniquePlayers()){
+			if(id.compareTo(myID) != 0){
+				uniquePlayer = id;
+			}
+		}
 		ShootThread st = new ShootThread(chord.getChordImpl(), uniquePlayer);
 		st.start();
 	}

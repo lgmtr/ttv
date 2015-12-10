@@ -17,7 +17,7 @@ public class BroadcastLog {
         this.target = target2;
         this.hit = hit2;
         this.transactionID = transactionID2;
-        //System.out.println(this);
+        System.out.println(this);
     }
 
     public ID getTarget() {

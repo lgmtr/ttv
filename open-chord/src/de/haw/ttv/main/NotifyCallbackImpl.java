@@ -3,7 +3,6 @@ package de.haw.ttv.main;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import de.uniba.wiai.lspi.chord.data.ID;
 import de.uniba.wiai.lspi.chord.service.NotifyCallback;
@@ -13,26 +12,28 @@ public class NotifyCallbackImpl implements NotifyCallback {
 
 	final List<BroadcastLog> broadcastLog = new ArrayList<>();
 	final List<ID> uniquePlayers = new ArrayList<>();
-	
+
 	private ChordImpl chordImpl;
-	
-	public void setChordImpl(ChordImpl chordImpl){
-		
+
+	public void setChordImpl(ChordImpl chordImpl) {
+
 	}
-	
+
 	@Override
 	public void retrieved(ID target) {
-		System.out.println("TargetID: " + target.toString());
-		boolean player = false;
-		ID uniquePlayer = null;
-		do{
-			int number = ThreadLocalRandom.current().nextInt(0, uniquePlayers.size() + 1);
-			uniquePlayer = uniquePlayers.get(number);
-			if(!uniquePlayer.equals(chordImpl.getID()))
-				player = true;
-		}while(!player);
-		ShootThread st = new ShootThread(chordImpl, uniquePlayer);
-		st.start();
+		System.out.println("Target ID: " + target.toString());
+		System.out.println("MyID: " + chordImpl.getID().toString());
+		System.out.println("Compare: " + target.compareTo(chordImpl.getID()));
+		if (target.compareTo(chordImpl.getID()) == 0) {
+			ID uniquePlayer = null;
+			for(ID id : uniquePlayers){
+				if(id.compareTo(chordImpl.getID()) != 0){
+					uniquePlayer = id;
+				}
+			}
+			ShootThread st = new ShootThread(chordImpl, uniquePlayer);
+			st.start();
+		}
 	}
 
 	@Override
@@ -43,10 +44,10 @@ public class NotifyCallbackImpl implements NotifyCallback {
 		broadcastLog.add(new BroadcastLog(source, target, hit, transactionID));
 
 		if (!uniquePlayers.contains(source)) {
-            uniquePlayers.add(source);
-        }
-        Collections.sort(uniquePlayers);
-		
+			uniquePlayers.add(source);
+		}
+		Collections.sort(uniquePlayers);
+
 	}
 
 	public List<ID> getUniquePlayers() {
