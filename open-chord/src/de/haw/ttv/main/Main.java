@@ -70,13 +70,16 @@ public class Main {
 		boolean player = false;
 		ID uniquePlayer = null;
 		do{
-			int number = ThreadLocalRandom.current().nextInt(0, chord.getNotifyCallbackImpl().getUniquePlayers().size() + 1);
+			int number = ThreadLocalRandom.current().nextInt(0, chord.getNotifyCallbackImpl().getUniquePlayers().size());
 			uniquePlayer = chord.getNotifyCallbackImpl().getUniquePlayers().get(number);
-			if(!uniquePlayer.equals(myID))
+			if(uniquePlayer.compareTo(myID)!=0)
 				player = true;
+			
+			System.out.println("shoot schleife");
 		}while(!player);
 		ShootThread st = new ShootThread(chord.getChordImpl(), uniquePlayer);
 		st.start();
+		System.out.println("geschossen");
 	}
 
 }

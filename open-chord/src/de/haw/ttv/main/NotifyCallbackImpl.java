@@ -23,16 +23,18 @@ public class NotifyCallbackImpl implements NotifyCallback {
 	@Override
 	public void retrieved(ID target) {
 		System.out.println("TargetID: " + target.toString());
-		boolean player = false;
-		ID uniquePlayer = null;
-		do{
-			int number = ThreadLocalRandom.current().nextInt(0, uniquePlayers.size() + 1);
-			uniquePlayer = uniquePlayers.get(number);
-			if(!uniquePlayer.equals(chordImpl.getID()))
-				player = true;
-		}while(!player);
-		ShootThread st = new ShootThread(chordImpl, uniquePlayer);
-		st.start();
+		if(target.compareTo(chordImpl.getID())==0) {
+			System.out.println("TargetID: " + target.toString());
+			boolean player = false;
+			ID uniquePlayer = null;
+			do{
+				int number = ThreadLocalRandom.current().nextInt(0, uniquePlayers.size());
+				uniquePlayer = uniquePlayers.get(number);
+				if(uniquePlayer.compareTo(chordImpl.getID())!=0)
+					player = true;
+			}while(!player);
+			System.out.println("NextID: " + uniquePlayer.toString());
+		}
 	}
 
 	@Override

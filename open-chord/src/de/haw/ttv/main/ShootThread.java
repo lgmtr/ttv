@@ -20,6 +20,7 @@ public class ShootThread extends Thread {
             try {
                 this.wait(100);
                 chord.retrieve(target);
+                System.out.println(target.toString());
             } catch (ServiceException | InterruptedException e) {
                 e.printStackTrace();
             }

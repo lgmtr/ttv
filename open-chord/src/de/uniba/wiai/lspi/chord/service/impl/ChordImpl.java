@@ -807,60 +807,55 @@ public final class ChordImpl implements Chord, Report, AsynChord {
 	// added by INET
 	public final Set<Serializable> retrieve(ID id) {
 
-		// check parameters
-		if (id == null) {
-			NullPointerException e = new NullPointerException(
-					"ID must not have value null!");
-			this.logger.error("Null pointer", e);
-			throw e;
-		}
+        // check parameters
+        if (id == null) {
+            NullPointerException e = new NullPointerException("ID must not have value null!");
+            this.logger.error("Null pointer", e);
+            throw e;
+        }
 
-		// determine ID for key
-		//ID id = this.hashFunction.getHashKey(key);
+        // determine ID for key
+        // ID id = this.hashFunction.getHashKey(key);
 
-		boolean debug = this.logger.isEnabledFor(DEBUG);
-		if (debug) {
-			this.logger.debug("Retrieving entries with id " + id);
-		}
-		Set<Entry> result = null;
+        boolean debug = this.logger.isEnabledFor(DEBUG);
+        if (debug) {
+            this.logger.debug("Retrieving entries with id " + id);
+        }
+        Set<Entry> result = null;
 
-		boolean retrieved = false;
-		while (!retrieved) {
-			// find successor of id
-			Node responsibleNode = null;
+        boolean retrieved = false;
+        while (!retrieved) {
+            // find successor of id
+            Node responsibleNode = null;
 
-			responsibleNode = findSuccessor(id);
+            responsibleNode = findSuccessor(id);
 
-			// invoke retrieveEntry method
-			try {
-				result = responsibleNode.retrieveEntries(id);
-				// cause while loop to end.
+            // invoke retrieveEntry method
+            try {
+                result = responsibleNode.retrieveEntries(id);
+                // cause while loop to end.
 
-				retrieved = true;
-			} catch (CommunicationException e1) {
-				if (debug) {
-					this.logger
-							.debug(
-									"An error occured while invoking the retrieveEntry method "
-											+ " on the appropriate node! Retrieve operation "
-											+ "failed!", e1);
-				}
-				continue;
-			}
-		}
-		Set<Serializable> values = new HashSet<Serializable>();
+                retrieved = true;
+            } catch (CommunicationException e1) {
+                if (debug) {
+                    this.logger.debug("An error occured while invoking the retrieveEntry method "
+                            + " on the appropriate node! Retrieve operation " + "failed!", e1);
+                }
+                continue;
+            }
+        }
+        Set<Serializable> values = new HashSet<Serializable>();
 
-		if (result != null) {
-			for (Entry entry : result) {
-				values.add(entry.getValue());
-			}
-		}
+        if (result != null) {
+            for (Entry entry : result) {
+                values.add(entry.getValue());
+            }
+        }
 
-		this.logger.debug("Entries were retrieved!");
+        this.logger.debug("Entries were retrieved!");
 
-		return values;
-
-	}
+        return values;
+    }
 	
 	public final void remove(Key key, Serializable s) {
 
