@@ -25,7 +25,7 @@ public final class Broadcast implements Serializable {
 		this.target = trg;
 		this.transaction = trn;
 		this.hit = hit;
-		System.out.println(this.toString());
+//		System.out.println(this.toString());
 	}
 	
 	public ID getRange () {

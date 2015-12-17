@@ -10,7 +10,7 @@ import de.uniba.wiai.lspi.chord.service.impl.ChordImpl;
 public class Chord {
 
     private static final String PROTOCOL = URL.KNOWN_PROTOCOLS.get(URL.SOCKET_PROTOCOL);
-    private static final String HOST_IP = "192.168.99.99";
+    private static final String HOST_IP = "192.168.99.225"; //99
     private static final String HOST_PORT = "8080";
     private static final String JOIN_IP = "192.168.99.225";
     private static final String JOIN_PORT = "8181";

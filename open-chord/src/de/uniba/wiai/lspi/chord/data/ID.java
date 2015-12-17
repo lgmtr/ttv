@@ -404,26 +404,26 @@ public final class ID implements Comparable<ID>, Serializable {
 	 *         the given object, respectively.
 	 */
 	public final int compareTo(ID otherKey) throws ClassCastException {
-
-		if (this.getLength() != otherKey.getLength()) {
-            throw new ClassCastException("Only ID objects with same length can be " 
-            								+ "compared! This ID is " + this.getLength()
-            								+ " bits long while the other ID is " 
-            								+ otherKey.getLength() + " bits long.");
-        }
-
-		// compare value byte by byte
-		byte[] otherBytes = new byte[this.id.length];
-		System.arraycopy(otherKey.id, 0, otherBytes, 0, this.id.length);
-
-		for (int i = 0; i < this.id.length; i++) {
-			if ((byte) (this.id[i] - 128) < (byte) (otherBytes[i] - 128)) {
-				return -1; // this ID is smaller
-			} else if ((byte) (this.id[i] - 128) > (byte) (otherBytes[i] - 128)) {
-				return 1; // this ID is greater
-			}
-		}
-		return 0;
+		return this.toBigInteger().compareTo(otherKey.toBigInteger());
+//		if (this.getLength() != otherKey.getLength()) {
+//            throw new ClassCastException("Only ID objects with same length can be " 
+//            								+ "compared! This ID is " + this.getLength()
+//            								+ " bits long while the other ID is " 
+//            								+ otherKey.getLength() + " bits long.");
+//        }
+//
+//		// compare value byte by byte
+//		byte[] otherBytes = new byte[this.id.length];
+//		System.arraycopy(otherKey.id, 0, otherBytes, 0, this.id.length);
+//
+//		for (int i = 0; i < this.id.length; i++) {
+//			if ((byte) (this.id[i] - 128) < (byte) (otherBytes[i] - 128)) {
+//				return -1; // this ID is smaller
+//			} else if ((byte) (this.id[i] - 128) > (byte) (otherBytes[i] - 128)) {
+//				return 1; // this ID is greater
+//			}
+//		}
+//		return 0;
 
 	}
 
