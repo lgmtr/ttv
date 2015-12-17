@@ -21,24 +21,24 @@ public class NotifyCallbackImpl implements NotifyCallback {
 
 	@Override
 	public void retrieved(ID target) {
-		System.out.println("Target ID: " + target.toString());
-		System.out.println("MyID: " + chordImpl.getID().toString());
+//		System.out.println("Target ID: " + target.toString());
+//		System.out.println("MyID: " + chordImpl.getID().toString());
 		System.out.println("Compare: " + target.compareTo(chordImpl.getID()));
-		if (target.compareTo(chordImpl.getID()) == 0) {
-			for(ID id : uniquePlayers){
-				if(!id.equals(chordImpl.getID())){
-					ShootThread st = new ShootThread(chordImpl, id);
-					st.start();
-				}
-			}
-		}
+//		if (target.compareTo(chordImpl.getID()) == 0) {
+//			for(ID id : uniquePlayers){
+//				if(!id.equals(chordImpl.getID())){
+//					ShootThread st = new ShootThread(chordImpl, id);
+//					st.start();
+//				}
+//			}
+//		}
 	}
 
 	@Override
 	public void broadcast(ID source, ID target, Boolean hit) {
 		int transactionID = chordImpl.getLastSeenTransactionID();
 
-		// chordImpl.setLastSeenTransactionID(transactionID);
+		chordImpl.setLastSeenTransactionID(transactionID);
 		broadcastLog.add(new BroadcastLog(source, target, hit, transactionID));
 
 		if (!uniquePlayers.contains(source)) {

@@ -13,7 +13,7 @@ import de.uniba.wiai.lspi.chord.data.ID;
 public class Main {
 
 	private static final int S = 10; // number of ships
-    static final int I = 100; // number of mySectors
+    private static final int I = 100; // number of mySectors
     private static final int WAITING_TIME_CHORD_JOIN = 5000;
     private static final int MIDDLE = 2;
 	
@@ -69,6 +69,7 @@ public class Main {
 	public void shoot() {
 		for(ID id : chord.getNotifyCallbackImpl().getUniquePlayers()){
 			if(!id.equals(myID)){
+//				chord.getChordImpl().retrieve(id);
 				ShootThread st = new ShootThread(chord.getChordImpl(), id);
 				st.start();
 			}
