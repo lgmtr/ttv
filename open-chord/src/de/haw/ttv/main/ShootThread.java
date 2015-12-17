@@ -18,7 +18,7 @@ public class ShootThread extends Thread {
     public void run() {
         synchronized (this) {
             try {
-                this.wait(100);
+                this.wait(500);
                 chord.retrieve(target);
             } catch (ServiceException | InterruptedException e) {
                 e.printStackTrace();

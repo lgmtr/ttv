@@ -14,14 +14,15 @@ public class Chord {
     private static final String HOST_PORT = "8080";
     private static final String JOIN_IP = "192.168.99.225";
     private static final String JOIN_PORT = "8181";
-    private static final String MODUS = "join"; // "join" and "create" are valid
+    private static final String MODUS = "create"; // "join" and "create" are valid
     
     private ChordImpl chordImpl;
+    private Main main;
     
     private NotifyCallbackImpl notifyCallbackImpl;
     
-    public Chord() {
-		// TODO Auto-generated constructor stub
+    public Chord(Main main) {
+		this.main = main;
 	}
     
     public void init() {
@@ -50,7 +51,7 @@ public class Chord {
 
         setChordImpl(new ChordImpl());
 		notifyCallbackImpl = new NotifyCallbackImpl();
-		notifyCallbackImpl.setChordImpl(chordImpl);
+		notifyCallbackImpl.setChordImpl(main, chordImpl);
 		chordImpl.setCallback(notifyCallbackImpl);
 
         URL bootstrapURL = null;
@@ -85,7 +86,7 @@ public class Chord {
         }
 		setChordImpl(new ChordImpl());
 		notifyCallbackImpl = new NotifyCallbackImpl();
-		notifyCallbackImpl.setChordImpl(chordImpl);
+		notifyCallbackImpl.setChordImpl(main, chordImpl);
 		chordImpl.setCallback(notifyCallbackImpl);
 
         try {

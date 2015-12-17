@@ -152,33 +152,33 @@ public final class ID implements Comparable<ID>, Serializable {
 		return id;
     }
     
-//    public ID add(ID value) {
-//		return new ID(toBigInteger().add(value.toBigInteger()).toByteArray());
-//	}
-//
-//	public ID add(long value) {
-//		return new ID(toBigInteger().add(BigInteger.valueOf(value)).toByteArray());
-//	}
-//
-//	public ID subtract(ID value) {
-//		return new ID(toBigInteger().subtract(value.toBigInteger()).toByteArray());
-//    }
-//
-//    public ID subtract(int value) {
-//        return new ID(toBigInteger().subtract(BigInteger.valueOf(value)).toByteArray());
-//    }
-//
-//	public ID multiply(long value) {
-//		return new ID(toBigInteger().multiply(BigInteger.valueOf(value)).toByteArray());
-//	}
-//
-//	public ID divide(long value) {
-//		return new ID(toBigInteger().divide(BigInteger.valueOf(value)).toByteArray());
-//	}
-//
-//	public ID mod(ID id) {
-//		return new ID(toBigInteger().mod(id.toBigInteger()).toByteArray());
-//	}
+    public ID add(ID value) {
+		return new ID(toBigInteger().add(value.toBigInteger()).toByteArray());
+	}
+
+	public ID add(long value) {
+		return new ID(toBigInteger().add(BigInteger.valueOf(value)).toByteArray());
+	}
+
+	public ID subtract(ID value) {
+		return new ID(toBigInteger().subtract(value.toBigInteger()).toByteArray());
+    }
+
+    public ID subtract(int value) {
+        return new ID(toBigInteger().subtract(BigInteger.valueOf(value)).toByteArray());
+    }
+
+	public ID multiply(long value) {
+		return new ID(toBigInteger().multiply(BigInteger.valueOf(value)).toByteArray());
+	}
+
+	public ID divide(long value) {
+		return new ID(toBigInteger().divide(BigInteger.valueOf(value)).toByteArray());
+	}
+
+	public ID mod(ID id) {
+		return new ID(toBigInteger().mod(id.toBigInteger()).toByteArray());
+	}
 
     /**
 	 * Representation of this as a String.
