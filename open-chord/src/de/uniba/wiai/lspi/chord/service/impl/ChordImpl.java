@@ -1124,7 +1124,6 @@ public final class ChordImpl implements Chord, Report, AsynChord {
         } catch (CommunicationException e) {
             e.printStackTrace();
         }
-		
 	}
 	
 	public void setCallback (NotifyCallback callback) {
