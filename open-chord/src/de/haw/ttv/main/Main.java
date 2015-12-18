@@ -19,7 +19,7 @@ public class Main {
 	public static final int I = 100; // number of mySectors
 	private static final int WAITING_TIME_CHORD_JOIN = 5000;
 //	private static final int MIDDLE = 2;
-	private static final ID BIGGEST_ID = new ID(BigInteger.valueOf(2).pow(160).subtract(BigInteger.ONE).toByteArray());
+	private static final ID BIGGEST_ID = getBiggestID();
 
 	public ID myID;
 	private static Chord chord;
@@ -35,6 +35,8 @@ public class Main {
 
 	private void startGame() {
 		System.out.println("MyID: " + chord.getChordImpl().getID().toString());
+		System.out.println("BiggestID Length: " + Main.BIGGEST_ID.getLength());
+		System.out.println("Compare IDs: " + Main.BIGGEST_ID.compareTo(chord.getChordImpl().getID()));
 		Scanner scanner = new Scanner(System.in);
 		// start the game after s was typed in
 		String input;
@@ -89,10 +91,7 @@ public class Main {
 		ID step = distance.divide(I);
 
 		for (int i = 0; i < I; i++) {
-			// (from + 1 + (i * step)) % biggestID
 			result[i] = from.add(1).add(step.multiply(i)).mod(BIGGEST_ID);
-
-			// System.out.println("sector " + (i + 1) + ": " + result[i]);
 		}
 		return result;
 	}
@@ -173,6 +172,16 @@ public class Main {
 		ShootThread st = new ShootThread(chord.getChordImpl(), middleOfSector);
 		st.start();
 
+	}
+	
+	private static ID getBiggestID(){
+		byte[] dummy = BigInteger.valueOf(2).pow(160).subtract(BigInteger.ONE).toByteArray();
+		byte[] biggest_ID = new byte[dummy.length-1];
+ 		for (int i = 0; i < dummy.length; i++) {
+			if(dummy[i] != 0)
+				biggest_ID[i-1] = dummy[i];
+		}
+ 		return new ID(biggest_ID);
 	}
 
 }

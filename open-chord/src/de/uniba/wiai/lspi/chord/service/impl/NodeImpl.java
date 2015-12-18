@@ -412,10 +412,6 @@ public final class NodeImpl extends Node {
 
 		// lastSeenTransactionID updaten
 		if (impl.getLastSeenTransactionID() < info.getTransaction()) {
-			// System.out.println("info.getTransaction(): " +
-			// info.getTransaction());
-			// System.out.println("impl.getLastSeenTransactionID(): " +
-			// impl.getLastSeenTransactionID());
 			impl.setLastSeenTransactionID(info.getTransaction());
 			return;
 		}
@@ -438,10 +434,8 @@ public final class NodeImpl extends Node {
 		// FingerTable iterieren und Nachricht senden.
 		for (int i = 0; i < fingerTable.size(); i++) {
 
-			// abbruchkriterium
-			// if (fingerTable.get(i) > info.getRange()) {
+			// Schleife wird an der stelle beendet!
 			if (fingerTable.get(i).getNodeID().subtract(this.nodeID).compareTo(info.getRange().subtract(this.nodeID)) > 0) {
-				// System.out.println("fingerTable.get(i) > info.getRange()");
 				return;
 			}
 
